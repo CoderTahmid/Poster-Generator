@@ -1,0 +1,1130 @@
+/* ==========================================================================
+   Zone Based Irrigation System - Academic Poster Stylesheet
+   REACT 2026 - IEEE Southeast University Student Branch
+   Strict 1:1 Aspect Ratio (1400px x 1400px) - Zero Unwanted Gaps
+   ========================================================================== */
+
+:root {
+  --primary-dark: #044331;
+  --primary-dark: #033829;
+  --primary-mid: #065f46;
+  --primary-bright: #10b981;
+  --primary-light: #ecfdf5;
+  --primary-subtle: #f0fdf4;
+  
+  --accent-blue: #0284c7;
+  --accent-amber: #d97706;
+  --accent-red: #dc2626;
+  
+  --text-main: #0f172a;
+  --text-muted: #334155;
+  --text-subtle: #64748b;
+  --text-white: #ffffff;
+  
+  --bg-page: #0f172a;
+  --bg-poster: #ffffff;
+  --bg-card: #ffffff;
+  
+  --border-light: #e2e8f0;
+  --border-emerald: #a7f3d0;
+  
+  --font-heading: 'Outfit', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  --poster-width: 1400px;
+  --poster-height: 1400px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-page);
+  font-family: var(--font-body);
+  color: var(--text-main);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   Toolbar & UI Controls
+   ========================================================================== */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.toolbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.toolbar-brand .badge {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+  outline: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10b981, #047857);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #059669, #065f46);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.zoom-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: background 0.15s ease;
+}
+
+.zoom-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.zoom-level {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  min-width: 48px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   Poster Viewport & Canvas Container
+   ========================================================================== */
+.poster-viewport {
+  width: 100%;
+  min-height: calc(100vh - 65px);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px 20px;
+  overflow: auto;
+}
+
+.poster-canvas {
+  width: var(--poster-width);
+  height: var(--poster-height);
+  aspect-ratio: 1 / 1;
+  background: var(--bg-poster);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  transform-origin: top center;
+  transition: transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Header Banner (Top of Poster) - 135px Height
+   ========================================================================== */
+.poster-header {
+  background: linear-gradient(135deg, #033829 0%, #065f46 50%, #0d9488 100%);
+  color: #ffffff;
+  padding: 14px 28px;
+  display: grid;
+  grid-template-columns: 280px 1fr 280px;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 4px solid #10b981;
+  height: 135px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.poster-header::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-image: radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Header Left: IEEE & REACT */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.react-badge {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ieee-icon-box {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.react-titles h2 {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.react-titles p {
+  font-size: 0.76rem;
+  font-weight: 500;
+  color: #a7f3d0;
+  letter-spacing: 0.3px;
+  margin-top: 3px;
+}
+
+/* Header Center: Main Title */
+.header-center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.title-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.title-icon {
+  width: 36px;
+  height: 36px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.main-title {
+  font-family: var(--font-heading);
+  font-size: 2.35rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+  line-height: 1.05;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.main-title .highlight-text {
+  color: #6ee7b7;
+}
+
+.main-subtitle {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #e2e8f0;
+  max-width: 95%;
+  margin-top: 3px;
+  line-height: 1.3;
+}
+
+.proposal-badge {
+  display: inline-block;
+  background: #ffffff;
+  color: #044331;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.6px;
+  padding: 3px 16px;
+  border-radius: 20px;
+  margin-top: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  text-transform: uppercase;
+}
+
+/* Header Right: Slogans */
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  text-align: right;
+  border-left: 2px solid rgba(255, 255, 255, 0.15);
+  padding-left: 18px;
+}
+
+.tagline-item {
+  font-family: var(--font-heading);
+  font-size: 0.98rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+.tagline-item.accent {
+  color: #a7f3d0;
+}
+
+.header-leaf-icon {
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   Poster Main 3-Column Body - 1180px Available Height
+   ========================================================================== */
+.poster-body {
+  display: grid;
+  grid-template-columns: 370px 1fr 370px;
+  gap: 12px;
+  padding: 12px 18px;
+  gap: 10px;
+  padding: 10px 16px;
+  flex: 1;
+  background: #f8fafc;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* Columns use consistent gap and flex-start to avoid artificial gaps */
+.poster-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Card Styling & Section Pills
+   ========================================================================== */
+.poster-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 9px 12px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #047857;
+  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  padding: 4px 10px;
+  border-radius: 5px;
+  margin-bottom: 6px;
+  margin-bottom: 7px;
+  align-self: flex-start;
+  box-shadow: 0 1px 3px rgba(4, 120, 87, 0.25);
+  letter-spacing: 0.2px;
+}
+
+.section-pill.alert-pill {
+  background: #047857;
+}
+
+.section-pill svg {
+  flex-shrink: 0;
+}
+
+.card-text {
+  font-size: 0.72rem;
+  line-height: 1.36;
+  font-size: 0.735rem;
+  line-height: 1.4;
+  color: #1e293b;
+  text-align: justify;
+}
+
+.card-text + .card-text {
+  margin-top: 4px;
+  margin-top: 5px;
+}
+
+.card-text strong {
+  color: #044331;
+  font-weight: 700;
+}
+
+/* Callout Box */
+.callout-box {
+  background: #ecfdf5;
+  border-left: 3px solid #10b981;
+  padding: 4px 8px;
+  padding: 6px 9px;
+  border-radius: 0 5px 5px 0;
+  margin-top: 5px;
+  font-size: 0.71rem;
+  margin-top: 6px;
+  font-size: 0.72rem;
+  color: #065f46;
+  line-height: 1.35;
+}
+
+/* ==========================================================================
+   Bullet Lists
+   ========================================================================== */
+.bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  gap: 5px;
+}
+
+.bullet-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.72rem;
+  line-height: 1.3;
+  gap: 7px;
+  font-size: 0.73rem;
+  line-height: 1.35;
+  color: #1e293b;
+}
+
+.bullet-icon {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.bullet-item strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Center Column Components
+   Center Column Components - Perfectly Balanced, NO Gaps
+   ========================================================================== */
+
+/* Section 6: System Overview Image */
+.system-overview-card {
+  padding: 8px 10px;
+  padding: 9px 11px;
+}
+
+.overview-img-container {
+  width: 100%;
+  max-height: 345px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  background: #f1f5f9;
+}
+
+.overview-img {
+  width: 100%;
+  height: 100%;
+  max-height: 345px;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+/* Section 7: System Architecture Diagram */
+.architecture-card {
+  padding: 8px 10px;
+  padding: 9px 11px;
+}
+
+.architecture-diagram {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  gap: 7px;
+}
+
+.arch-row {
+  display: grid;
+  gap: 6px;
+  gap: 7px;
+  align-items: stretch;
+}
+
+.arch-row.top-row {
+  grid-template-columns: 1fr 1fr 1.25fr;
+}
+
+.arch-row.bottom-row {
+  grid-template-columns: 1fr 1.25fr 1fr;
+}
+
+.arch-box {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 5px;
+  padding: 5px 6px;
+  border-radius: 6px;
+  padding: 7px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.arch-box.blue-theme {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+.arch-box.control-theme {
+  background: #fefce8;
+  border-color: #fef08a;
+}
+
+.arch-box.user-theme {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+
+.arch-tag {
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #047857;
+  margin-bottom: 2px;
+}
+
+.arch-box.blue-theme .arch-tag { color: #0284c7; }
+.arch-box.control-theme .arch-tag { color: #854d0e; }
+.arch-box.user-theme .arch-tag { color: #334155; }
+
+.arch-icon-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1px 0 2px 0;
+  margin: 1px 0 3px 0;
+}
+
+.arch-content {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  font-size: 0.7rem;
+  line-height: 1.3;
+  color: #334155;
+}
+
+.arch-content strong {
+  color: #0f172a;
+  display: block;
+  font-size: 0.7rem;
+  font-size: 0.72rem;
+}
+
+/* Center Bottom Row: Feasibility & Outcomes split */
+/* Center Bottom Row: Feasibility & Outcomes split - Expands to fill bottom cleanly */
+.split-grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+}
+
+.split-grid-row .poster-card {
+  height: 100%;
+  justify-content: space-between;
+}
+
+/* Section 8: Feasibility Analysis */
+.feasibility-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  gap: 6px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.feasibility-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  gap: 8px;
+  background: #f8fafc;
+  padding: 4px 6px;
+  border-radius: 5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border-left: 3px solid #10b981;
+}
+
+.check-badge {
+  background: #10b981;
+  color: #fff;
+  width: 15px;
+  height: 15px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-size: 0.7rem;
+  font-weight: bold;
+  margin-top: 1px;
+}
+
+.feasibility-text {
+  font-size: 0.68rem;
+  line-height: 1.25;
+  font-size: 0.71rem;
+  line-height: 1.3;
+  color: #1e293b;
+}
+
+.feasibility-text strong {
+  display: block;
+  font-size: 0.7rem;
+  font-size: 0.73rem;
+  color: #044331;
+  margin-bottom: 1px;
+}
+
+/* Section 9: Expected Outcomes & Results */
+.outcomes-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  gap: 5px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.outcome-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  gap: 9px;
+  background: #f0fdf4;
+  border: 1px solid #dcfce7;
+  padding: 4px 8px;
+  border-radius: 5px;
+  padding: 6px 9px;
+  border-radius: 6px;
+}
+
+.outcome-icon-box {
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.outcome-icon-box.water { background: #e0f2fe; color: #0284c7; }
+.outcome-icon-box.energy { background: #fef3c7; color: #d97706; }
+.outcome-icon-box.leak { background: #fee2e2; color: #dc2626; }
+.outcome-icon-box.yield { background: #dcfce7; color: #16a34a; }
+.outcome-icon-box.farmer { background: #f3e8ff; color: #9333ea; }
+
+.outcome-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.outcome-title {
+  font-size: 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.outcome-metric {
+  font-size: 0.68rem;
+  font-size: 0.71rem;
+  color: #047857;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Right Column Components
+   Right Column Components - ZERO GAPS, Rich Spotlight
+   ========================================================================== */
+
+/* Section 10: Limitations & Mitigation */
+.risk-subgrid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  gap: 7px;
+}
+
+.risk-block {
+  background: #f8fafc;
+  border-radius: 5px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  padding: 7px 9px;
+}
+
+.risk-block.limitations {
+  border-top: 2px solid #ef4444;
+}
+
+.risk-block.mitigation {
+  border-top: 2px solid #10b981;
+}
+
+.risk-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  margin-bottom: 5px;
+}
+
+.risk-block.limitations .risk-header { color: #b91c1c; }
+.risk-block.mitigation .risk-header { color: #047857; }
+
+.risk-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.risk-list li {
+  font-size: 0.69rem;
+  font-size: 0.71rem;
+  color: #334155;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  line-height: 1.25;
+  line-height: 1.3;
+}
+
+.risk-bullet {
+  color: #94a3b8;
+  font-size: 0.6rem;
+  margin-top: 1px;
+  font-size: 0.62rem;
+  margin-top: 2px;
+}
+
+/* Mobile App Spotlight Card */
+/* Mobile App Spotlight Card - Expands with flex: 1 to eliminate gap */
+.spotlight-card {
+  background: linear-gradient(145deg, #044331 0%, #065f46 100%);
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 9px 12px;
+  box-shadow: 0 4px 10px rgba(4, 67, 49, 0.25);
+  padding: 12px 14px;
+  box-shadow: 0 4px 12px rgba(4, 67, 49, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1; /* Automatically absorbs remaining vertical space */
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%);
+  top: -30px;
+  right: -30px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.spotlight-header {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.spotlight-title {
+  font-family: 'Brush Script MT', cursive, sans-serif;
+  font-size: 1.2rem;
+  font-size: 1.45rem;
+  color: #6ee7b7;
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  font-style: italic;
+}
+
+.spotlight-subtitle {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+/* Phone Mockup */
+/* Phone Mockup - Richer, Larger, Publication Grade */
+.mockup-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  flex: 1;
+  align-items: center;
+}
+
+.smartphone-frame {
+  width: 175px;
+  width: 220px;
+  background: #0f172a;
+  border: 2px solid #334155;
+  border-radius: 16px;
+  padding: 6px 5px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  border: 3px solid #334155;
+  border-radius: 20px;
+  padding: 8px 7px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.phone-speaker {
+  width: 28px;
+  width: 34px;
+  height: 3px;
+  background: #475569;
+  border-radius: 2px;
+  margin: 0 auto 5px auto;
+  margin: 0 auto 6px auto;
+}
+
+.phone-screen {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 6px;
+  border-radius: 12px;
+  padding: 8px 7px;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  gap: 5px;
+}
+
+.screen-app-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 3px;
+  padding-bottom: 4px;
+}
+
+.app-title-text {
+  font-size: 0.62rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  color: #047857;
+}
+
+.zone-status-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.59rem;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+}
+
+.zone-status-row.wet {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.zone-status-row.optimal {
+  background: #f0fdf4;
+  color: #15803d;
+  border: 1px solid #86efac;
+}
+
+.zone-status-row.dry {
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #fdba74;
+}
+
+.phone-telemetry-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.58rem;
+  color: #64748b;
+  padding: 1px 4px;
+  font-weight: 600;
+}
+
+.phone-leak-status {
+  background: #dcfce7;
+  color: #166534;
+  font-size: 0.58rem;
+  font-size: 0.63rem;
+  font-weight: 800;
+  text-align: center;
+  padding: 3px;
+  border-radius: 3px;
+  margin-top: 1px;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* ==========================================================================
+   Footer Banner (Bottom of Poster) - 85px Height
+   ========================================================================== */
+.poster-footer {
+  background: #033829;
+  color: #ffffff;
+  padding: 10px 24px;
+  display: grid;
+  grid-template-columns: 240px 1fr 320px;
+  align-items: center;
+  gap: 16px;
+  border-top: 3px solid #10b981;
+  height: 85px;
+  box-sizing: border-box;
+}
+
+.footer-university {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 4px 12px;
+  border-radius: 6px;
+  height: 54px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-university img {
+  max-height: 44px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.footer-team-info {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0 16px;
+}
+
+.team-entry {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-role {
+  font-size: 0.65rem;
+  color: #a7f3d0;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.team-val {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.footer-event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.71rem;
+  color: #e2e8f0;
+}
+
+.event-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-slogan {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  font-family: var(--font-heading);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #6ee7b7;
+}
+
+/* ==========================================================================
+   Print & PDF Media Rules
+   ========================================================================== */
+@media print {
+  @page {
+    size: 1400px 1400px;
+    margin: 0;
+  }
+  
+  html, body {
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 1400px !important;
+    height: 1400px !important;
+    overflow: hidden !important;
+  }
+  
+  .toolbar {
+    display: none !important;
+  }
+  
+  .poster-viewport {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 1400px !important;
+    width: 1400px !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
+  
+  .poster-canvas {
+    width: 1400px !important;
+    height: 1400px !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    overflow: hidden !important;
+  }
+  
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+

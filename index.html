@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZONE BASED IRRIGATION SYSTEM - REACT 2026</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- html2pdf.js for direct client-side PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Floating / Top Control Toolbar (Hidden in Print/PDF) -->
+  <header class="toolbar">
+    <div class="toolbar-brand">
+      <span class="badge">IEEE SEU</span>
+      <span>REACT 2026 Poster Presentation</span>
+    </div>
+    <div class="toolbar-actions">
+      <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomOutBtn" title="Zoom Out">−</button>
+        <span class="zoom-level" id="zoomLevelDisplay">Fit</span>
+        <button class="zoom-btn" id="zoomInBtn" title="Zoom In">+</button>
+        <button class="zoom-btn" id="zoomFitBtn" title="Fit to Screen">Auto Fit</button>
+      </div>
+      <button class="btn btn-secondary" id="printBtn" title="Print using browser vector engine">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        Print / Save PDF (Vector)
+      </button>
+      <button class="btn btn-primary" id="downloadPdfBtn" title="Download direct high-resolution PDF file">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Download PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- Poster Viewport Wrapper for scaling and display -->
+  <main class="poster-viewport" id="viewport">
+    
+    <!-- Printable Poster Canvas Container (1400px x 1400px Square) -->
+    <article class="poster-canvas" id="posterCanvas">
+      
+      <!-- ==========================================
+           1. Header Banner
+           ========================================== -->
+      <header class="poster-header">
+        <div class="header-left">
+          <div class="react-badge">
+            <div class="ieee-icon-box">
+              <!-- IEEE Brain / Circuit Icon -->
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+            </div>
+            <div class="react-titles">
+              <h2>REACT 2026</h2>
+              <p>IEEE Southeast University Student Branch</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-center">
+          <div class="title-icon-wrapper">
+            <!-- Sustainable Leaf & Drop Icon -->
+            <svg class="title-icon" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+              <path d="M12 22.5A8.5 8.5 0 0 0 20.5 14c0-3.5-3-7.5-8.5-12-5.5 4.5-8.5 8.5-8.5 12a8.5 8.5 0 0 0 8.5 8.5Z" fill="#10b981" fill-opacity="0.3"></path>
+            </svg>
+            <h1 class="main-title">ZONE BASED <span class="highlight-text">IRRIGATION SYSTEM</span></h1>
+          </div>
+          <p class="main-subtitle">AI &amp; IoT-Enabled Zone-Precision Irrigation and Automated Leak Detection System for Sustainable Agriculture</p>
+          <div class="proposal-badge">Project Proposal &amp; Technical Documentation</div>
+        </div>
+
+        <div class="header-right">
+          <span class="tagline-item">Smarter Irrigation</span>
+          <span class="tagline-item accent">Healthier Crops</span>
+          <span class="tagline-item">A Sustainable Future</span>
+          <div class="header-leaf-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"></path>
+            </svg>
+          </div>
+        </div>
+      </header>
+
+      <!-- ==========================================
+           2. Poster Body (3 Columns)
+           ========================================== -->
+      <section class="poster-body">
+        
+        <!-- ========================================
+             COLUMN 1: Left
+             ======================================== -->
+        <div class="poster-column">
+          
+          <!-- Section 1: Executive Summary -->
+          <div class="poster-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+              1. Executive Summary
+            </div>
+            <p class="card-text">
+              <strong>Zone Based Irrigation System</strong> is a zone-aware, AI-assisted precision irrigation system designed to solve two critical problems: a conventional <em>"soil moisture low &rarr; pump ON"</em> system ignores: <strong>spatial variability</strong> of soil conditions and <strong>undetected water loss</strong> from pipe or drip-line leakage.
+            </p>
+            <p class="card-text">
+              The system deploys solar-powered sensor nodes across independently controllable irrigation zones. Each node reports soil moisture, temperature, humidity and (optionally) soil electrical conductivity over a LoRa network to a central gateway. A cloud-based decision engine combines this data with a live weather forecast to compute zone-wise irrigation requirements and actuates solenoid valves. Only the zones that genuinely need water are watered &mdash; while dry zones stay off. In parallel, expected vs actual flow comparison detects leakage at the pump and each zone, raising instant alerts. Results and alerts are delivered via a web/mobile dashboard and SMS. The system reduces water and energy use, giving farmers real-time visibility into their land.
+            </p>
+          </div>
+
+          <!-- Section 2: Introduction & Background -->
+          <div class="poster-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              2. Introduction &amp; Background
+            </div>
+            <p class="card-text">
+              Agriculture is the largest consumer of freshwater. In Bangladesh, irrigation still relies on manual judgement, fixed schedules, or single-sensor "threshold" systems. Soil, drainage, shading and micro-terrain create zones with different moisture levels. Watering the whole field based on one sensor leads to over-watering and under-watering, wasting water, energy and damaging crops. Pipes and drip lines are rarely monitored, so leaks can go unnoticed for days, causing major losses.
+            </p>
+            <div class="callout-box">
+              <strong>Aquazone AI</strong> addresses both problems together: zone-aware irrigation and infrastructure-aware leak detection.
+            </div>
+          </div>
+
+          <!-- Section 3: Problem Statement -->
+          <div class="poster-card">
+            <div class="section-pill alert-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              3. Problem Statement
+            </div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Uniform irrigation wastes water (over- and under-watering).</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Manual inspection does not scale (slow, subjective, impractical).</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Leakage goes undetected (water, energy and crop loss).</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Lack of real-time field data and zone-wise control.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Section 4: Related Work / Existing Approaches -->
+          <div class="poster-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+              4. Related Work / Existing Approaches
+            </div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Single-sensor threshold irrigation systems</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Manual field inspection</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Basic flow meters without AI/analytics</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Limited or no leak detection</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>No integration of weather forecast and zone-wise control.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Section 5: Objectives -->
+          <div class="poster-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+              5. Objectives
+            </div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Enable zone-precise irrigation using AI and IoT.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Detect and alert pipe/drip-line leaks in real time.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Reduce water and energy consumption.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Provide real-time monitoring via web/app and SMS.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Be cost-effective and field-deployable for smallholders.</span>
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- ========================================
+             COLUMN 2: Center (Main Technical Focus)
+             ======================================== -->
+        <div class="poster-column">
+          
+          <!-- Section 6: System Overview -->
+          <div class="poster-card system-overview-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+              6. System Overview
+            </div>
+            
+            <div class="overview-img-container">
+              <img src="Main%20important%20picture.png" alt="Zone Based Irrigation System Overview Diagram" class="overview-img">
+            </div>
+          </div>
+
+          <!-- Section 7: System Architecture -->
+          <div class="poster-card architecture-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+              7. System Architecture
+            </div>
+
+            <div class="architecture-diagram">
+              <!-- Upper Layer Row -->
+              <div class="arch-row top-row">
+                
+                <!-- Field Layer -->
+                <div class="arch-box">
+                  <div class="arch-tag">Field Layer</div>
+                  <div class="arch-icon-row">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line></svg>
+                  </div>
+                  <div class="arch-content">
+                    <strong>Sensor Node</strong>
+                    Soil Moisture, Temp, Humidity, EC (Solar Powered)
+                  </div>
+                </div>
+
+                <!-- Communication Layer -->
+                <div class="arch-box blue-theme">
+                  <div class="arch-tag">Communication Layer</div>
+                  <div class="arch-icon-row">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path><circle cx="12" cy="12" r="2"></circle><path d="M19.1 4.9C23 8.8 23 15.2 19.1 19.1"></path></svg>
+                  </div>
+                  <div class="arch-content">
+                    <strong>LoRa Gateway</strong>
+                    LoRa Network (Long Range, Receives Data)
+                  </div>
+                </div>
+
+                <!-- Cloud & AI Layer -->
+                <div class="arch-box blue-theme">
+                  <div class="arch-tag">Cloud &amp; AI Layer</div>
+                  <div class="arch-icon-row">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>
+                  </div>
+                  <div class="arch-content">
+                    <strong>Cloud Server</strong>
+                    Data Processing &amp; AI Decision Engine + Weather Forecast
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Lower Layer Row -->
+              <div class="arch-row bottom-row">
+                
+                <!-- Control Layer -->
+                <div class="arch-box control-theme">
+                  <div class="arch-tag">Control Layer</div>
+                  <div class="arch-icon-row">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#854d0e" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </div>
+                  <div class="arch-content">
+                    <strong>Solenoid Valves</strong>
+                    (Zone-based valve control)
+                  </div>
+                </div>
+
+                <!-- Actuation & Hydraulics -->
+                <div class="arch-box control-theme">
+                  <div class="arch-tag">Irrigation Actuation</div>
+                  <div class="arch-icon-row">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#854d0e" stroke-width="2"><path d="M12 2v20"></path><path d="m17 5-5-3-5 3"></path><path d="m17 19-5 3-5-3"></path></svg>
+                  </div>
+                  <div class="arch-content">
+                    <strong>Irrigation System</strong>
+                    (Pump + Pipes + Drip/Sprinkler)
+                  </div>
+                </div>
+
+                <!-- User Layer -->
+                <div class="arch-box user-theme">
+                  <div class="arch-tag">User Layer</div>
+                  <div class="arch-icon-row">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#334155" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                  </div>
+                  <div class="arch-content">
+                    <strong>Web Dashboard &amp; App</strong>
+                    Web Dashboard, Mobile App, SMS Alerts
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Grid: Feasibility Analysis & Expected Outcomes -->
+          <div class="split-grid-row">
+            
+            <!-- Section 8: Feasibility Analysis -->
+            <div class="poster-card">
+              <div class="section-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                8. Feasibility Analysis
+              </div>
+              <div class="feasibility-grid">
+                <div class="feasibility-item">
+                  <div class="check-badge">✓</div>
+                  <div class="feasibility-text">
+                    <strong>Technical Feasibility</strong>
+                    Proven IoT, LoRa, AI and solar technologies already exist and are affordable.
+                  </div>
+                </div>
+                <div class="feasibility-item">
+                  <div class="check-badge">✓</div>
+                  <div class="feasibility-text">
+                    <strong>Economic Feasibility</strong>
+                    Low-cost components and scalable design suit smallholder farmers.
+                  </div>
+                </div>
+                <div class="feasibility-item">
+                  <div class="check-badge">✓</div>
+                  <div class="feasibility-text">
+                    <strong>Operational Feasibility</strong>
+                    Simple installation and user-friendly interface.
+                  </div>
+                </div>
+                <div class="feasibility-item">
+                  <div class="check-badge">✓</div>
+                  <div class="feasibility-text">
+                    <strong>Environmental Feasibility</strong>
+                    Conserves water, reduces energy use and lowers carbon footprint.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 9: Expected Outcomes & Results -->
+            <div class="poster-card">
+              <div class="section-pill">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                9. Expected Outcomes &amp; Results
+              </div>
+              <div class="outcomes-grid">
+                <div class="outcome-stat-card">
+                  <div class="outcome-icon-box water">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg>
+                  </div>
+                  <div class="outcome-info">
+                    <span class="outcome-title">Water savings</span>
+                    <span class="outcome-metric">40–60% reduction in water use.</span>
+                  </div>
+                </div>
+
+                <div class="outcome-stat-card">
+                  <div class="outcome-icon-box energy">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  </div>
+                  <div class="outcome-info">
+                    <span class="outcome-title">Energy savings</span>
+                    <span class="outcome-metric">20–40% lower energy consumption.</span>
+                  </div>
+                </div>
+
+                <div class="outcome-stat-card">
+                  <div class="outcome-icon-box leak">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                  </div>
+                  <div class="outcome-info">
+                    <span class="outcome-title">Leak detection</span>
+                    <span class="outcome-metric">Real-time alerts, reduced loss.</span>
+                  </div>
+                </div>
+
+                <div class="outcome-stat-card">
+                  <div class="outcome-icon-box yield">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                  </div>
+                  <div class="outcome-info">
+                    <span class="outcome-title">Higher yield</span>
+                    <span class="outcome-metric">10–30% productivity improvement.</span>
+                  </div>
+                </div>
+
+                <div class="outcome-stat-card">
+                  <div class="outcome-icon-box farmer">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                  </div>
+                  <div class="outcome-info">
+                    <span class="outcome-title">Farmer empowerment</span>
+                    <span class="outcome-metric">Real-time data &amp; actionable insights.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- ========================================
+             COLUMN 3: Right
+             ======================================== -->
+        <div class="poster-column">
+          
+          <!-- Section 10: Limitations & Risk Mitigation -->
+          <div class="poster-card">
+            <div class="section-pill alert-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path></svg>
+              10. Limitations &amp; Risk Mitigation
+            </div>
+
+            <div class="risk-subgrid">
+              <!-- Limitations -->
+              <div class="risk-block limitations">
+                <div class="risk-header">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#b91c1c" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                  <span>Limitations</span>
+                </div>
+                <ul class="risk-list">
+                  <li><span class="risk-bullet">◆</span> Initial setup cost.</li>
+                  <li><span class="risk-bullet">◆</span> Dependence on weather data accuracy.</li>
+                  <li><span class="risk-bullet">◆</span> Network coverage challenges in remote areas.</li>
+                  <li><span class="risk-bullet">◆</span> Maintenance of sensors and valves.</li>
+                </ul>
+              </div>
+
+              <!-- Risk Mitigation -->
+              <div class="risk-block mitigation">
+                <div class="risk-header">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#047857" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                  <span>Risk Mitigation</span>
+                </div>
+                <ul class="risk-list">
+                  <li><span class="risk-bullet">◆</span> Use low-cost, scalable components.</li>
+                  <li><span class="risk-bullet">◆</span> Hybrid (LoRa + GSM) communication.</li>
+                  <li><span class="risk-bullet">◆</span> Durable, weatherproof hardware.</li>
+                  <li><span class="risk-bullet">◆</span> Local training and support.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 11: Future Scope -->
+          <div class="poster-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
+              11. Future Scope
+            </div>
+            <ul class="bullet-list">
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>AI-based crop health monitoring.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Autonomous valve control.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Integration with satellite imagery.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Expansion to larger farms.</span>
+              </li>
+              <li class="bullet-item">
+                <span class="bullet-icon"><svg width="10" height="10" viewBox="0 0 24 24" fill="#047857"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Multi-crop and multi-region adaptation.</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Section 12: Conclusion -->
+          <div class="poster-card">
+            <div class="section-pill">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+              12. Conclusion
+            </div>
+            <p class="card-text">
+              <strong>Zone Based Irrigation System</strong> addresses the real challenges of modern agriculture by combining AI, IoT and sustainable energy. It enables zone-precision irrigation, detects leaks, conserves resources and empowers farmers &mdash; building a smarter, greener and more resilient future for agriculture in Bangladesh.
+            </p>
+          </div>
+
+          <!-- Bottom Right Spotlight Card: Mobile App Mockup -->
+          <div class="spotlight-card">
+            <div class="spotlight-header">
+              <div class="spotlight-title">Smart Technology</div>
+              <div class="spotlight-subtitle">for a Greener Tomorrow</div>
+            </div>
+
+            <div class="mockup-container">
+              <div class="smartphone-frame">
+                <div class="phone-speaker"></div>
+                <div class="phone-screen">
+                  <div class="screen-app-bar">
+                    <span class="app-title-text">AgriZone AI Telemetry</span>
+                    <span style="font-size: 0.58rem; color: #10b981; font-weight: 800; display: flex; align-items: center; gap: 3px;">
+                      <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                      ONLINE
+                    </span>
+                  </div>
+
+                  <div class="phone-telemetry-meta">
+                    <span>Field A &bull; Sector 01</span>
+                    <span>Solar: 98%</span>
+                  </div>
+                  
+                  <div class="zone-status-row wet">
+                    <span>💧 Zone 1 (Wet)</span>
+                    <span>60% &bull; Valve OFF</span>
+                  </div>
+                  <div class="zone-status-row optimal">
+                    <span>🌱 Zone 2 (Optimal)</span>
+                    <span>75% &bull; Valve OFF</span>
+                  </div>
+                  <div class="zone-status-row dry">
+                    <span>⚡ Zone 3 (Dry)</span>
+                    <span>25% &bull; Valve OPEN</span>
+                  </div>
+
+                  <div class="phone-telemetry-meta">
+                    <span>Flow: 14.2 L/min</span>
+                    <span>LoRa: RSSI -82 dBm</span>
+                  </div>
+
+                  <div class="phone-leak-status">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>No Leak Detected &bull; Flow Normal</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ==========================================
+           3. Footer Banner
+           ========================================== -->
+      <footer class="poster-footer">
+        <!-- University Logo -->
+        <div class="footer-university">
+          <img src="diu_logo_trimmed.png" alt="Daffodil International University">
+        </div>
+
+        <!-- Team Members -->
+        <div class="footer-team-info">
+          <div class="team-entry">
+            <span class="team-role">Team Name</span>
+            <span class="team-val">DIU BBCI ALPHA</span>
+          </div>
+          <div class="team-entry">
+            <span class="team-role">Team Leader</span>
+            <span class="team-val">Sk Azmain Zunaeid</span>
+          </div>
+          <div class="team-entry">
+            <span class="team-role">Team Member 1</span>
+            <span class="team-val">Tahmid Ibne Mofazzol</span>
+          </div>
+          <div class="team-entry">
+            <span class="team-role">Team Member 2</span>
+            <span class="team-val">Md Delower Sarker</span>
+          </div>
+        </div>
+
+        <!-- Event Details & Slogan -->
+        <div class="footer-event-details">
+          <div class="event-line">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#a7f3d0" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <span><strong>REACT 2026</strong>, IEEE SEU Student Branch</span>
+          </div>
+          <div class="event-line">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#a7f3d0" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span>Southeast University, Dhaka-1208</span>
+          </div>
+          <div class="event-line">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#a7f3d0" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            <span>10 September 2026</span>
+          </div>
+          <div class="footer-slogan">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6ee7b7" stroke-width="2.5"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"></path></svg>
+            <span>Smart Irrigation for a Greener Tomorrow</span>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
